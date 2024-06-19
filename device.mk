@@ -13,11 +13,6 @@ TARGET_USES_DEVICE_SPECIFIC_GATEKEEPER := true
 # Keymaster
 TARGET_USES_DEVICE_SPECIFIC_KEYMASTER := true
 
-# Vibrator
-ifneq ($(TARGET_KERNEL_VERSION),4.19)
-TARGET_USES_DEVICE_SPECIFIC_VIBRATOR := true
-endif
-
 # Inherit from mithorium-common
 $(call inherit-product, device/xiaomi/mithorium-common/mithorium.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
@@ -30,9 +25,7 @@ PRODUCT_PACKAGES += \
     xiaomi_olive_overlay_SystemUI
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
-ifneq ($(TARGET_KERNEL_VERSION),4.19)
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-haptics
-endif
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1440
@@ -116,12 +109,6 @@ PRODUCT_PACKAGES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
-
-# Vibrator
-ifneq ($(TARGET_KERNEL_VERSION),4.19)
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.3-service.xiaomi_mi439
-endif
 
 # Inherit from vendor blobs
 $(call inherit-product, vendor/xiaomi/Mi439/Mi439-vendor.mk)
