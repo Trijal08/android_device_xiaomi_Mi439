@@ -113,12 +113,15 @@ PRODUCT_SOONG_NAMESPACES += \
 # Inherit from vendor blobs
 $(call inherit-product, vendor/xiaomi/Mi439/Mi439-vendor.mk)
 
+# Extras
 # EXTRA: MiuiCamera
-ifneq ($(wildcard vendor/miuicamera/config.mk),)
-$(call inherit-product, vendor/miuicamera/config.mk)
+$(call inherit-product-if-exists, vendor/miuicamera/config.mk)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/miuicam/pine.xml:$(TARGET_COPY_OUT_VENDOR)/etc/device_features/pine.xml \
     $(LOCAL_PATH)/configs/miuicam/olive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/device_features/olive.xml \
     $(LOCAL_PATH)/configs/miuicam/olive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/device_features/olivelite.xml \
     $(LOCAL_PATH)/configs/miuicam/olive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/device_features/olivewood.xml
-endif
+# EXTRA: ViPER4AndroidFX
+$(call inherit-product-if-exists, packages/apps/ViPER4AndroidFX/config.mk)
+# EXTRA: BCR (Basic Call Recorder)
+$(call inherit-product-if-exists, vendor/bcr/bcr.mk)
